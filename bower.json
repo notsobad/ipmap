@@ -1,0 +1,14 @@
+{
+  "name": "ipmap",
+  "version": "0.1",
+  "main": "path/to/main.css",
+  "ignore": [
+    ".jshintrc",
+    "**/*.txt"
+  ],
+  "dependencies": {
+    "jquery": "latest",
+	"bootstrap" : "3.1.1",
+	"underscore" : "latest"
+  }
+}

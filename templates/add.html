@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block body %}
+<style>
+.error{color:red;}
+</style>
+<h2>Your ip infomation:</h2>
+<form role="form" method="post" action="{{ reverse_url('add') }}">
+  <div class="form-group">
+    <label for="ipDesc">Description</label>
+    <input name="description" type="text" class="form-control" id="ipDesc" placeholder="Enter description" value="{{ form.get('description', '') }}">
+  </div>
+  <div class="form-group {% if form.get('error_ipdata', '') %}has-error{% end %}">
+    <label for="ipData">IP data, one ip each line {%  if form.get('error_ipdata', '') %}  <span class="error">({{ form.get('error_ipdata') }} )</span> {% end %}</label>
+	<textarea name="ipdata" id="ipData" class="form-control" rows="20">{{ form.get('ipdata', '') }}</textarea>
+  </div>
+  <button type="submit" class="btn btn-default">Submit</button>
+</form>
+{% end %}

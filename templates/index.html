@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block body %}
+<style>
+span.fade{color:#ccc;opacity: 1;}
+body > .container{background-color:transparent;}
+</style>
+<div class="jumbotron">
+  <h1>test</h1>
+  <p>Draw ip map</p>
+  <p>
+	<a class="btn btn-success btn-large" href="{{ reverse_url('add') }}">
+	  <span class="glyphicon glyphicon-random"></span> Try 
+	</a>
+  </p>
+</div>
+
+{% end %}
