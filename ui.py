@@ -53,7 +53,12 @@ class AddHandler(BaseHandler):
 			return self.redirect(self.reverse_url("main"))
 		ret.update(error_ipdata="Wrong ip data.")
 		self.render('add.html', form=ret)
-		
+
+class MapHandler(BaseHandler):
+	@tornado.web.addslash
+	def get(self, map_id):
+		self.render("map.html")
+
 
 define("ip", default="0.0.0.0", help="ip to bind")
 define("port", default=9527, help="port to listen")
@@ -69,6 +74,7 @@ settings = {
 app = tornado.web.Application([
 	tornado.web.url(r'/', MainHandler, name="main"),
 	tornado.web.url(r'/add/', AddHandler, name="add"),
+	tornado.web.url(r'/map/([^/]+)/', MapHandler, name="map"),
 	(r'/static/(.*)', tornado.web.StaticFileHandler, {'path': 'static'}),
 ], **settings)
 
