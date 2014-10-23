@@ -13,6 +13,8 @@ import tornado.web
 import tornado
 import tornado.httpclient
 from tornado.options import define, options
+from lib import save_ips_geo, load_ips_geo
+
 
 BASE_DIR = os.path.dirname(os.path.realpath(__file__))
 ipv4_re = re.compile(r'^(25[0-5]|2[0-4]\d|[0-1]?\d?\d)(\.(25[0-5]|2[0-4]\d|[0-1]?\d?\d)){3}$')
@@ -44,20 +46,23 @@ class AddHandler(BaseHandler):
 		else:
 			for ip in ips.splitlines():
 				ip = ip.strip()
-				#__import__('pdb').set_trace()
 				if not ip or not ipv4_re.match(ip):
 					continue
 				clean_ips.append(ip)
-		#print clean_ips
+
 		if clean_ips:
+			# OK
+			save_ips_geo(ips, description)
 			return self.redirect(self.reverse_url("main"))
+
 		ret.update(error_ipdata="Wrong ip data.")
 		self.render('add.html', form=ret)
 
 class MapHandler(BaseHandler):
 	@tornado.web.addslash
-	def get(self, map_id):
-		self.render("map.html")
+	def get(self, key):
+		json_data = load_ips_geo(key)
+		self.render("map.html", json_data=json_data)
 
 
 define("ip", default="0.0.0.0", help="ip to bind")
