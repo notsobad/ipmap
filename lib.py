@@ -17,7 +17,7 @@ def get_geo_info(ip):
 	try:
 		response = reader.city(ip)
 	except geoip2.errors.AddressNotFoundError:
-		return ret
+		return []
 
 	return [response.location.latitude, response.location.longitude]
 

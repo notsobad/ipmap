@@ -52,8 +52,8 @@ class AddHandler(BaseHandler):
 
 		if clean_ips:
 			# OK
-			save_ips_geo(ips, description)
-			return self.redirect(self.reverse_url("main"))
+			key = save_ips_geo(clean_ips, desc)
+			return self.redirect(self.reverse_url("map", key))
 
 		ret.update(error_ipdata="Wrong ip data.")
 		self.render('add.html', form=ret)
